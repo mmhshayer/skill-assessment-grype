@@ -1,8 +1,11 @@
 const express = require('express');
 const dotenv = require('dotenv').config();
+const { connectToDB } = require('./config/db');
+
 
 const port = process.env.PORT || 3000;
 
+connectToDB();
 const app = express() ;
 
 app.use('/api/auth', require('./routes/authRoutes'));
