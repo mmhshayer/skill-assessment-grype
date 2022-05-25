@@ -8,7 +8,7 @@ function Dashboard() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const { user } = useSelector(state => state.auth)
+  const { user } = useSelector((state) => state.auth)
   const { members, isLoading, isError, message } = useSelector(
     (state) => state.members
   )
@@ -23,7 +23,6 @@ function Dashboard() {
     }
 
     dispatch(getMembers())
-    console.log(members)
 
     return () => {
       dispatch(reset())
@@ -35,40 +34,33 @@ function Dashboard() {
     return <Loading />
   }
 
-  let DisplayData;
-  if(members.length > 2 ) {
-    DisplayData = members.map(
-      (member)=>{
-        return(
-          <tr>
-            <td>{member.first_name}</td>
-            <td>{member.last_name}</td>
-            <td>{member.email}</td>
-          </tr>
-        )
-      }
-    )
-  }
-
   return (
     <>
       <section className='heading'>
         <h1>Welcome {user && user.name}</h1>
-        <p>Dashboard</p>
+        <p>Here is a list of all our members by joining date.</p>
       </section>
 
       <section className='content'>
         {members.length > 0 ? (
-          <div className='goals'>
-            {members.map((member) => (
-              // <GoalItem key={goal._id} goal={goal} />
-              <div className='pb-5'>
-                <h3>{member.first_name}</h3>
-                <p>{member.last_name}</p>
-                <p>{member.email}</p>
-              </div>
-            ))}
-          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Created At</th>
+                <th>Name</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+          <tbody>
+              {members.map((member) => (
+                <tr className='pb-2'>
+                  <td>{new Date(member.createdAt).toDateString()}</td>
+                  <th>{member.last_name} {member.last_name}</th>
+                  <th>{member.email}</th>
+                </tr>
+              ))}
+          </tbody>
+        </table>
         ) : (
           <h3>No Members Found</h3>
         )}
