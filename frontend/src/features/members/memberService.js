@@ -15,8 +15,8 @@ const getMembers = async (token) => {
   return response.data
 }
 
-const goalService = {
+const memberService = {
   getMembers
 }
 
-export default goalService
+export default memberService
